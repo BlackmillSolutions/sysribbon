@@ -13,7 +13,7 @@ PANEL_META_DIR ?= $(PREFIX)/share/xfce4/panel/plugins
 ICON_DIR ?= $(PREFIX)/share/icons/hicolor/128x128/apps
 BINARY = libsysribbon.so
 
-.PHONY: all check-deps install uninstall clean test
+.PHONY: all check-deps install uninstall clean test test-gui screenshots
 all: check-deps $(BINARY)
 
 check-deps:
@@ -53,5 +53,18 @@ test:
 	  -o test-scales tests/test_scales.c src/presentation.c -lm
 	./test-scales
 
+test-gui: test-gui-build
+	python3 tests/run_gui.py
+
+screenshots: test-gui-build
+	python3 tests/run_gui.py --screenshots assets/screenshots
+
+.PHONY: test-gui-build
+test-gui-build: check-deps
+	$(CC) -std=c11 $(CPPFLAGS) $(CFLAGS) -Wall -Wextra -Werror -D_POSIX_C_SOURCE=200809L \
+	  $(shell $(PKG_CONFIG) --cflags $(PKGS)) -o test-gui \
+	  tests/test_gui.c src/plugin.c src/sampler.c src/presentation.c \
+	  -Wl,--wrap=sr_sample_selected $(LDFLAGS) $(shell $(PKG_CONFIG) --libs $(PKGS)) -lm
+
 clean:
-	rm -f $(BINARY) test-sampler test-fixture test-presentation test-scales
+	rm -f $(BINARY) test-sampler test-fixture test-presentation test-scales test-gui
