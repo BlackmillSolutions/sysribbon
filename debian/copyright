@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: SysRibbon
-Source: https://github.com/REPLACE_WITH_ACCOUNT/sysribbon
+Source: https://github.com/BlackmillSolutions/sysribbon
 
 Files: *
 Copyright: 2026 SysRibbon contributors

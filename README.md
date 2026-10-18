@@ -176,7 +176,9 @@ sensors. Full desktop-session integration still needs testing in Xfce.
 
 Pull requests, bug reports and reproducible test cases welcome. For panel issues, include your Linux distribution, Xfce version, panel orientation and steps to reproduce.
 
-**Packaging/release maintainers:** Before publishing packages, replace the template name, email and GitHub URL in `debian/control`, `debian/changelog`, `debian/copyright` and this README. See [PACKAGING.md](PACKAGING.md).
+**Maintainer:** Ali Karadag <blackmillsolutions@gmail.com> · [BlackmillSolutions/sysribbon](https://github.com/BlackmillSolutions/sysribbon).
+
+See [PACKAGING.md](PACKAGING.md) for package builds and the Debian submission process.
 
 ## License
 
