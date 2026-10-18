@@ -48,8 +48,16 @@ Check contents/dependencies first:
 ```sh
 dpkg-deb --contents ../xfce4-sysribbon-plugin_*.deb
 dpkg-deb --info ../xfce4-sysribbon-plugin_*.deb
-lintian ../xfce4-sysribbon-plugin_*.changes
+lintian --profile debian ../sysribbon_0.5.0-1_amd64.changes
 ```
+
+The Lintian example uses version `0.5.0-1` and architecture `amd64`; adjust those
+parts to match your build. The `.changes` and `.buildinfo` filenames use the
+**source package name** `sysribbon`, while the installable `.deb` uses the
+**binary package name** `xfce4-sysribbon-plugin`. The optional
+`xfce4-sysribbon-plugin-dbgsym_*.ddeb` contains debugging symbols. These different
+names are expected; do not rename the artifacts. The Debian Lintian profile also
+lets you check this Debian-targeted package when building on Ubuntu.
 
 Expected installed paths (on amd64):
 
