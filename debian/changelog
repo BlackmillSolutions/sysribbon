@@ -1,0 +1,5 @@
+sysribbon (0.5.0-1) unstable; urgency=medium
+
+  * Initial Debian packaging and complete SysRibbon rename.
+
+ -- YOUR NAME <you@example.com>  Sun, 18 Oct 2026 00:00:00 +0200

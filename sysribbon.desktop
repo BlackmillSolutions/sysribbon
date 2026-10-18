@@ -1,0 +1,12 @@
+[Xfce Panel]
+Type=X-XFCE-PanelPlugin
+Encoding=UTF-8
+Name=SysRibbon
+Name[de]=SysRibbon Systemmonitor
+Comment=Lightweight CPU, RAM, temperature and network monitor
+Comment[de]=Leichter Systemmonitor für CPU, RAM, Temperatur und Netzwerk
+Icon=sysribbon
+X-XFCE-Module=sysribbon
+X-XFCE-Internal=FALSE
+X-XFCE-Unique=FALSE
+X-XFCE-API=2.0

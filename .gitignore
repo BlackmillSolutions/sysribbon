@@ -1,0 +1,28 @@
+# Compiler / tests
+libsysribbon.so
+*.o
+test-sampler
+test-fixture
+test-presentation
+test-scales
+
+# Debian build artifacts
+.debhelper/
+debian/.debhelper/
+debian/xfce4-sysribbon-plugin/
+debian/files
+debian/debhelper-build-stamp
+debian/*.debhelper.log
+debian/*.substvars
+*.deb
+*.build
+*.buildinfo
+*.changes
+*.dsc
+*.debian.tar.*
+*.orig.tar.*
+
+# Editors
+.DS_Store
+*.swp
+*~
