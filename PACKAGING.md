@@ -13,12 +13,12 @@ SysRibbon ships a Debian-style source packaging skeleton in `debian/`. **It does
 
 ## 1. Prepare before public release
 
-Edit **all** placeholders:
+Verify the package identity before each release:
 
-- `debian/control`: `Maintainer: YOUR NAME <you@example.com>` → your real name and contact email.
-- `debian/changelog`: replace the same maintainer identity and date. `dch` (from `devscripts`) is convenient.
-- `debian/copyright`: `https://github.com/REPLACE_WITH_ACCOUNT/sysribbon` → the actual GitHub repository.
-- `README.md`: replace `YOUR_GITHUB_USERNAME` in the clone example.
+- `debian/control`: `Maintainer: Ali Karadag <blackmillsolutions@gmail.com>`.
+- `debian/changelog`: use the same maintainer identity and keep the release date current. `dch` (from `devscripts`) is convenient.
+- `debian/copyright`: upstream source is `https://github.com/BlackmillSolutions/sysribbon`.
+- `README.md`: the clone example uses `https://github.com/BlackmillSolutions/sysribbon.git`.
 
 Also verify upstream authorship/copyright, the `LICENSE` text, and generated logo usage. Review the current Debian Policy and adjust `Standards-Version` after assessing policy changes. For an official upload you must become an active maintainer and handle security reports and bug fixes.
 
@@ -48,8 +48,16 @@ Check contents/dependencies first:
 ```sh
 dpkg-deb --contents ../xfce4-sysribbon-plugin_*.deb
 dpkg-deb --info ../xfce4-sysribbon-plugin_*.deb
-lintian ../xfce4-sysribbon-plugin_*.changes
+lintian --profile debian ../sysribbon_0.5.0-1_amd64.changes
 ```
+
+The Lintian example uses version `0.5.0-1` and architecture `amd64`; adjust those
+parts to match your build. The `.changes` and `.buildinfo` filenames use the
+**source package name** `sysribbon`, while the installable `.deb` uses the
+**binary package name** `xfce4-sysribbon-plugin`. The optional
+`xfce4-sysribbon-plugin-dbgsym_*.ddeb` contains debugging symbols. These different
+names are expected; do not rename the artifacts. The Debian Lintian profile also
+lets you check this Debian-targeted package when building on Ubuntu.
 
 Expected installed paths (on amd64):
 
@@ -111,7 +119,7 @@ sudo apt remove xfce4-sysribbon-plugin
 
 ## 6. Release checklist
 
-- [ ] All maintainer and repository placeholders replaced
+- [x] All maintainer and repository placeholders replaced
 - [ ] Copyright and logo rights verified; LICENSE and Debian DEP-5 metadata reviewed
 - [ ] Correct Xfce API compatibility tested on target systems
 - [ ] `make test` passes; Debian package builds in a clean environment

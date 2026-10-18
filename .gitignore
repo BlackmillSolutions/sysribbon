@@ -5,6 +5,8 @@ test-sampler
 test-fixture
 test-presentation
 test-scales
+test-gui
+__pycache__/
 
 # Debian build artifacts
 .debhelper/

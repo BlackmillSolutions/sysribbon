@@ -11,17 +11,15 @@
 
 SysRibbon shows live CPU, RAM, temperature and network statistics directly in your Xfce panel. It's a native C plugin — not a btop wrapper — and does not spawn a subprocess for each refresh.
 
-```text
-CPU ▁▂▃▅▇ 24% │ RAM ▁▃▄▅▆ 6.4/16 GiB │ TEMP ▁▂▃▄▅ 48°C │ ↓1.2 MiB/s ↑60 KiB/s
-```
+![SysRibbon with CPU, RAM and temperature history graphs and network throughput](assets/screenshots/panel-default.png)
 
 Or activate **minimal mode**:
 
-```text
-24% │ 6.4/16 GiB │ 48°C │ ↓1.2 MiB/s ↑60 KiB/s
-```
+![SysRibbon in minimal mode with numeric readings](assets/screenshots/panel-minimal.png)
 
-> **Status:** Development preview. The non-GUI tests pass; full UI integration and Debian binary builds have not been validated on every target distro. Report bugs with distro, Xfce and panel versions.
+*Captured from the actual GTK plugin widgets with fixed demonstration values, using the Adwaita dark theme.*
+
+> **Status:** Development preview. Sampler, presentation and GTK GUI tests pass locally; full desktop-session integration and Debian binary builds have not been validated on every target distro. Report bugs with distro, Xfce and panel versions.
 
 ## Features
 
@@ -101,12 +99,6 @@ xfce4-panel -r
 
 Right-click an Xfce panel → **Panel → Add New Items** → **SysRibbon**. Right-click SysRibbon → **Properties** to configure it.
 
-## Migrating from MetricsLine v0.4
-
-This release **fully changes the Xfce module ID** from `metricsline` to `sysribbon`, along with its library and desktop metadata. It is not an in-place rename of existing panel instances. **Remove the old MetricsLine panel item and manually uninstall its files before installing SysRibbon.** Your old per-instance settings aren't migrated automatically.
-
-See [MIGRATION.md](MIGRATION.md) for exact commands and the optional configuration backup.
-
 ## Configuration
 
 | Settings area | What you can change |
@@ -116,6 +108,23 @@ See [MIGRATION.md](MIGRATION.md) for exact commands and the optional configurati
 | Scaling | Lower bounds for CPU, RAM and temperature history graphs |
 
 Drag each section's **right edge** to resize it; the resize cursor should appear only near its edge. Values are not clickable and **do not launch btop**.
+
+<details>
+<summary>Settings screenshots (current interface in German)</summary>
+
+**Display**
+
+![Display settings for visible metrics, colors, graphs, minimal mode and update interval](assets/screenshots/settings-display.png)
+
+**Widths and thresholds**
+
+![Separate normal and minimal widths, plus warning and critical thresholds](assets/screenshots/settings-widths.png)
+
+**Scaling**
+
+![Independent lower bounds for CPU, RAM and temperature history graphs](assets/screenshots/settings-scaling.png)
+
+</details>
 
 ## Design and performance
 
@@ -136,11 +145,40 @@ A GLib timer drives updates. History is bounded in memory. Disabled metrics are 
 - Some Xfce versions and vertical panel configurations need more hands-on UI testing.
 - Debian packaging is provided for local builds and future upstream review; **the package has not been accepted into Debian or Ubuntu repositories**.
 
+## Development and GUI tests
+
+```sh
+make test        # Sampler, formatting and graph scale tests
+make             # Build the panel plugin
+```
+
+The GTK GUI suite additionally needs Python 3, Xvfb and a D-Bus session runner:
+
+```sh
+sudo apt install python3 xvfb dbus-daemon
+make test-gui
+make screenshots # Run the suite and capture PNGs in assets/screenshots/
+```
+
+The runner creates a private X11 display, session bus and configuration directory.
+It does not restart or modify your desktop panel. Set `XVFB=/path/to/Xvfb` to use
+an Xvfb executable outside `PATH`.
+
+GUI tests compile the production plugin and exercise its real GTK widgets and
+Xfce configuration files in a GTK host window. Only sampling is replaced with
+fixed demonstration values, keeping screenshots reproducible and independent of
+the host's sensors. Coverage includes default rendering, minimal mode, saving
+and reloading settings, cancellation, hiding and restoring metrics, threshold
+normalization, horizontal and vertical resizing, timer updates and missing
+sensors. Full desktop-session integration still needs testing in Xfce.
+
 ## Maintainers and contributors
 
 Pull requests, bug reports and reproducible test cases welcome. For panel issues, include your Linux distribution, Xfce version, panel orientation and steps to reproduce.
 
-**Packaging/release maintainers:** Before publishing packages, replace the template name, email and GitHub URL in `debian/control`, `debian/changelog`, `debian/copyright` and this README. See [PACKAGING.md](PACKAGING.md).
+**Maintainer:** Ali Karadag <blackmillsolutions@gmail.com> · [BlackmillSolutions/sysribbon](https://github.com/BlackmillSolutions/sysribbon).
+
+See [PACKAGING.md](PACKAGING.md) for package builds and the Debian submission process.
 
 ## License
 

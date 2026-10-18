@@ -1,5 +1,5 @@
 sysribbon (0.5.0-1) unstable; urgency=medium
 
-  * Initial Debian packaging and complete SysRibbon rename.
+  * Initial Debian packaging for the SysRibbon Xfce panel plugin.
 
- -- YOUR NAME <you@example.com>  Sun, 18 Oct 2026 00:00:00 +0200
+ -- Ali Karadag <blackmillsolutions@gmail.com>  Sun, 18 Oct 2026 12:02:05 +0200
